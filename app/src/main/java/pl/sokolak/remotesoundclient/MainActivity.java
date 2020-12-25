@@ -11,11 +11,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Player player = new Player(this);
-        player.init();
-
-        Connector connector = new Connector(this);
-        connector.init();
+        ClientConnector clientConnector = new ClientConnector(this,
+                "192.168.254.105",
+                "8080");
+        clientConnector.init();
     }
-
 }

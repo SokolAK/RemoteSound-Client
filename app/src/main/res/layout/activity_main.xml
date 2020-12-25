@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorBackDark"
+    android:screenOrientation="portrait"
     tools:context=".MainActivity">
 
     <EditText
@@ -29,7 +30,7 @@
         android:id="@+id/tvConnection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="connection"
+        android:text="@string/disconnected"
         android:textColor="@color/colorText"
         app:layout_constraintTop_toBottomOf="@+id/etPort" />
 
@@ -37,11 +38,22 @@
         android:id="@+id/btnConnect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="connection"
+        android:text="@string/connect"
         android:backgroundTint="@color/colorButton2"
         app:layout_constraintTop_toBottomOf="@+id/tvConnection" />
 
+    <TextView
+        android:id="@+id/tvMessages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/colorText"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintBottom_toTopOf="@+id/line"
+        app:layout_constraintTop_toBottomOf="@+id/btnConnect" />
+
     <View
+        android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorText"
