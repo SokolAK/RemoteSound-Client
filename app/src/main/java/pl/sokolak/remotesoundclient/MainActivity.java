@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ClientConnector clientConnector = new ClientConnector(this,
-                "192.168.254.105",
+                "192.168.0.114",
                 "8080");
         clientConnector.init();
     }
