@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RemoteSoundClient</string>
+    <string name="app_name">RS Client</string>
     <string name="hello">Hello!</string>
     <string name="status">Status</string>
     <string name="playing">Playing</string>
@@ -9,4 +9,5 @@
     <string name="connected">Connected</string>
     <string name="disconnected">Disconnected</string>
     <string name="connect">Connect</string>
+    <string name="reconnect">Reconnect</string>
 </resources>

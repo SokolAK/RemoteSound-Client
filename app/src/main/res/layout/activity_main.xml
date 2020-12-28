@@ -56,41 +56,104 @@
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorText"
-        app:layout_constraintBottom_toTopOf="@+id/status" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/status"
+        android:background="@color/colorText" />
 
     <LinearLayout
         android:id="@+id/status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/controlButtons"
+        app:layout_constraintBottom_toTopOf="@+id/repeat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:orientation="horizontal">
 
-<!--        <TextView-->
-<!--            android:id="@+id/playerStatus"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/hello"-->
-<!--            android:textColor="@color/colorText"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/controlButtons" />-->
+        <TextView
+            android:id="@+id/playerStatus"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/status"
+            android:textColor="@color/colorText" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/time"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="00:00"-->
-<!--            android:textColor="@color/colorText"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/controlButtons" />-->
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textColor="@color/colorText" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/repeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/volumeButtons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/repeatLabel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/repeat"
+            android:textColor="@color/colorText" />
+
+        <EditText
+            android:id="@+id/repeatValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:textColor="@color/colorText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/volumeButtons"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/controlButtons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/volumeDown"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:backgroundTint="@color/colorButton3"
+            android:src="@drawable/ic_baseline_volume_down_24" />
+
+        <TextView
+            android:id="@+id/volumeValue"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="0"
+            android:textColor="@color/colorButton3" />
+
+        <ImageButton
+            android:id="@+id/volumeUp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:backgroundTint="@color/colorButton3"
+            android:src="@drawable/ic_baseline_volume_up_24" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/controlButtons"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toTopOf="@+id/buttons1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -98,7 +161,7 @@
         <ImageButton
             android:id="@+id/buttonBackward"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginHorizontal="2dp"
             android:backgroundTint="@color/colorButton2"
@@ -107,7 +170,7 @@
         <ImageButton
             android:id="@+id/buttonStop"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginHorizontal="2dp"
             android:backgroundTint="@color/colorButton2"
@@ -116,19 +179,17 @@
         <ImageButton
             android:id="@+id/buttonForward"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginHorizontal="2dp"
             android:backgroundTint="@color/colorButton2"
             android:src="@android:drawable/ic_media_ff" />
-
-
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/buttons1"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toTopOf="@+id/buttons2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -165,7 +226,7 @@
     <LinearLayout
         android:id="@+id/buttons2"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
