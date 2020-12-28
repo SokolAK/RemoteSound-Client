@@ -8,4 +8,9 @@
         <item name="android:textColor">@color/colorText</item>
     </style>
 
+    <style name="ThemeOverlay.RemoteSoundClient.AppWidgetContainer" parent="">
+        <item name="appWidgetBackgroundColor">@color/light_blue_600</item>
+        <item name="appWidgetTextColor">@color/light_blue_50</item>
+    </style>
+
 </resources>

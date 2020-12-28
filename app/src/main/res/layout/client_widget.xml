@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:padding="@dimen/widget_margin"
+    android:orientation="horizontal"
+    android:theme="@style/ThemeOverlay.RemoteSoundClient.AppWidgetContainer">
+
+    <ImageButton
+        android:id="@+id/buttonConnectW"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="5dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/colorButton2"
+        android:src="@drawable/ic_baseline_refresh_48"
+        android:text="1" />
+
+<!--    <Button-->
+<!--        android:id="@+id/buttonConnectW"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginHorizontal="5dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:backgroundTint="@color/colorButton2"-->
+<!--        android:textColor="@color/colorText"-->
+<!--        android:text="D"-->
+<!--        android:textSize="48sp" />-->
+
+    <ImageButton
+        android:id="@+id/buttonStopW"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="5dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/colorButton3"
+        android:src="@drawable/ic_baseline_stop_48"
+        android:text="1" />
+
+    <Button
+        android:id="@+id/button1W"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="5dp"
+        android:layout_weight="1"
+        android:textSize="48sp"
+        android:textColor="@color/colorText"
+        android:backgroundTint="@color/colorButton"
+        android:text="1" />
+
+    <Button
+        android:id="@+id/button2W"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="5dp"
+        android:layout_weight="1"
+        android:textSize="48sp"
+        android:textColor="@color/colorText"
+        android:backgroundTint="@color/colorButton"
+        android:text="2" />
+
+    <Button
+        android:id="@+id/button3W"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="5dp"
+        android:layout_weight="1"
+        android:textSize="48sp"
+        android:textColor="@color/colorText"
+        android:backgroundTint="@color/colorButton"
+        android:text="3" />
+
+</LinearLayout>

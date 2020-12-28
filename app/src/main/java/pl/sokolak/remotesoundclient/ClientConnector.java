@@ -2,6 +2,11 @@ package pl.sokolak.remotesoundclient;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,6 +31,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 
+import lombok.Getter;
+
+import static pl.sokolak.remotesoundclient.ClientWidget.ACTION_CONNECTION_STATUS;
+
 @SuppressLint("SetTextI18n")
 public class ClientConnector {
     private final Activity activity;
@@ -39,7 +48,9 @@ public class ClientConnector {
     private String ip;
     private String port;
     private TextView tvConnection, tvMessages, tvTime, tvPlayerStatus, tvRepeat, tvVolume;
+    @Getter
     private Button btnConnect, btn1, btn2, btn3, btn4, btn5, btn6;
+    @Getter
     private ImageButton btnStop, btnBack, btnForw, btnVolUp, btnVolDown;
     private Socket socket;
 
@@ -233,8 +244,8 @@ public class ClientConnector {
         });
     }
 
-    private void changeConnectionStatus(boolean connected) {
-        if (connected) {
+    private void changeConnectionStatus(boolean isConnected) {
+        if (isConnected) {
             connectionStatus = ConnectionStatus.CONNECTED;
             tvConnection.setText(activity.getString(R.string.status) + ": " + activity.getString(R.string.connected));
             activity.runOnUiThread(() -> btnConnect.setText(R.string.reconnect));
@@ -243,6 +254,12 @@ public class ClientConnector {
             tvConnection.setText(activity.getString(R.string.status) + ": " + activity.getString(R.string.disconnected));
             activity.runOnUiThread(() -> btnConnect.setText(R.string.connect));
         }
+
+        Intent intent = new Intent(activity, ClientWidget.class);
+        intent.setAction(ACTION_CONNECTION_STATUS);
+        int ids[] = AppWidgetManager.getInstance(activity.getApplication()).getAppWidgetIds(new ComponentName(activity.getApplication(), ClientWidget.class));
+        intent.putExtra("isConnected", isConnected);
+        activity.sendBroadcast(intent);
     }
 
     enum ConnectionStatus {

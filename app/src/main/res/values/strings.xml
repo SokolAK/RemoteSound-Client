@@ -10,4 +10,6 @@
     <string name="disconnected">Disconnected</string>
     <string name="connect">Connect</string>
     <string name="reconnect">Reconnect</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
