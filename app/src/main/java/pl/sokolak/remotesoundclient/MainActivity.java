@@ -1,13 +1,12 @@
 package pl.sokolak.remotesoundclient;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         clientConnector = new ClientConnector(this,
                 "192.168.0.114",
-                "8080");
+                "50000");
         clientConnector.init();
     }
 

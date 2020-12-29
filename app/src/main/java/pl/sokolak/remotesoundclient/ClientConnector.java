@@ -2,17 +2,10 @@ package pl.sokolak.remotesoundclient;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Application;
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,15 +16,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketAddress;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
 
 import lombok.Getter;
+import lombok.SneakyThrows;
 
 import static pl.sokolak.remotesoundclient.ClientWidget.ACTION_CONNECTION_STATUS;
 
@@ -76,7 +67,7 @@ public class ClientConnector {
                 try {
                     //connectionStatus = ConnectionStatus.CONNECTED;
                     socket = new Socket(SERVER_IP, SERVER_PORT);
-                    output = new PrintWriter(socket.getOutputStream());
+                    output = new PrintWriter(socket.getOutputStream(), true);
                     input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     new Thread(new ThreadRead()).start();
 
@@ -101,64 +92,54 @@ public class ClientConnector {
         public void run() {
             if (output != null) {
                 output.println(msg);
-                output.flush();
 
-                //String repeatVal = "R" + etRepeat.getText();
-                //output.println(repeatVal);
-                //output.flush();
+                @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("HH:mm:ss");
+                String time = df.format(Calendar.getInstance().getTime());
+                activity.runOnUiThread(() -> tvMessages.setText("Client [" + time + "]:\n" + msg));
             }
-//            activity.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    tvMessages.append("client: " + message + "\n");
-//                    etMessage.setText("");
-//                }
-//            });
         }
     }
 
-
     class ThreadRead implements Runnable {
+        @SneakyThrows
         @Override
         public void run() {
-            while (true) {
-                if (input != null) {
-                    try {
-                        String message = input.readLine();
-                        if (message != null) {
-                            @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("HH:mm:ss");
-                            String time = df.format(Calendar.getInstance().getTime());
-                            activity.runOnUiThread(() -> tvMessages.setText("Server [" + time + "]:\n" + message));
-                            String[] items = message.trim().split("_");
+            while (input != null) {
+                try {
+                    String message = input.readLine();
+                    if (message != null) {
+                        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("HH:mm:ss");
+                        String time = df.format(Calendar.getInstance().getTime());
+                        activity.runOnUiThread(() -> tvMessages.setText("Server [" + time + "]:\n" + message));
+                        String[] items = message.trim().split("_");
 
-                            if (Integer.parseInt(items[0]) == 1) {
-                                changeConnectionStatus(true);
-                            }
-                            if (Integer.parseInt(items[0]) == 0) {
-                                changeConnectionStatus(false);
-                            }
-
-                            activity.runOnUiThread(() -> tvPlayerStatus.setText(String.valueOf(items[1])));
-                            activity.runOnUiThread(() -> tvTime.setText(String.valueOf(items[2])));
-                            activity.runOnUiThread(() -> tvRepeat.setText(String.valueOf(items[3])));
-                            if (!etRepeat.hasFocus()) {
-                                activity.runOnUiThread(() -> etRepeat.setText(String.valueOf(items[4])));
-                            }
-
-                            activity.runOnUiThread(() -> tvVolume.setText(String.valueOf(items[5])));
-
-                            activity.runOnUiThread(() -> btn1.setText(String.valueOf(items[6])));
-                            activity.runOnUiThread(() -> btn2.setText(String.valueOf(items[7])));
-                            activity.runOnUiThread(() -> btn3.setText(String.valueOf(items[8])));
-                            activity.runOnUiThread(() -> btn4.setText(String.valueOf(items[9])));
-                            activity.runOnUiThread(() -> btn5.setText(String.valueOf(items[10])));
-                            activity.runOnUiThread(() -> btn6.setText(String.valueOf(items[11])));
-                        } else {
+                        if (Integer.parseInt(items[0]) == 1) {
+                            changeConnectionStatus(true);
+                        }
+                        if (Integer.parseInt(items[0]) == 0) {
                             changeConnectionStatus(false);
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+                        activity.runOnUiThread(() -> tvPlayerStatus.setText(String.valueOf(items[1])));
+                        activity.runOnUiThread(() -> tvTime.setText(String.valueOf(items[2])));
+                        activity.runOnUiThread(() -> tvRepeat.setText(String.valueOf(items[3])));
+                        if (!etRepeat.hasFocus()) {
+                            activity.runOnUiThread(() -> etRepeat.setText(String.valueOf(items[4])));
+                        }
+
+                        activity.runOnUiThread(() -> tvVolume.setText(String.valueOf(items[5])));
+
+                        activity.runOnUiThread(() -> btn1.setText(String.valueOf(items[6])));
+                        activity.runOnUiThread(() -> btn2.setText(String.valueOf(items[7])));
+                        activity.runOnUiThread(() -> btn3.setText(String.valueOf(items[8])));
+                        activity.runOnUiThread(() -> btn4.setText(String.valueOf(items[9])));
+                        activity.runOnUiThread(() -> btn5.setText(String.valueOf(items[10])));
+                        activity.runOnUiThread(() -> btn6.setText(String.valueOf(items[11])));
+                    } else {
+                        changeConnectionStatus(false);
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -244,6 +225,7 @@ public class ClientConnector {
         });
     }
 
+    @SneakyThrows
     private void changeConnectionStatus(boolean isConnected) {
         if (isConnected) {
             connectionStatus = ConnectionStatus.CONNECTED;
@@ -253,6 +235,16 @@ public class ClientConnector {
             connectionStatus = ConnectionStatus.DISCONNECTED;
             tvConnection.setText(activity.getString(R.string.status) + ": " + activity.getString(R.string.disconnected));
             activity.runOnUiThread(() -> btnConnect.setText(R.string.connect));
+
+            if(socket != null) {
+                socket.close();
+            }
+            if (input != null) {
+                input.close();
+            }
+            if (output != null) {
+                output.close();
+            }
         }
 
         Intent intent = new Intent(activity, ClientWidget.class);

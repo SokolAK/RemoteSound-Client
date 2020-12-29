@@ -3,18 +3,9 @@ package pl.sokolak.remotesoundclient;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RemoteViews;
-
-import androidx.core.content.ContextCompat;
 
 import static pl.sokolak.remotesoundclient.MainActivity.ACTION_WIDGET_BUTTON;
 
